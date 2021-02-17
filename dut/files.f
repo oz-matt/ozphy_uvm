@@ -1,0 +1,9 @@
+decode.v
+encode.v
+ozdefs.sv
+b8b10dec.sv
+b8b10enc.sv
+serdes.sv
+pcie_basic_if.sv
+ozphy.sv
+phyb2b_top.sv

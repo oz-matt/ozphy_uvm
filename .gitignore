@@ -1,0 +1,17 @@
+*.report
+*.log
+*log
+*.fsdb
+*~
+*.dat.work.*
+*.vpd
+*.key
+*.project
+
+/generated_tb/sim/csrc
+/generated_tb/sim/simv.daidir
+/generated_tb/sim/simv.vdb
+/generated_tb/sim/urgReport
+/generated_tb/sim/DVEfiles
+/generated_tb.bak
+
