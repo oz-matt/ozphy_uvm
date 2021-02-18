@@ -1,5 +1,5 @@
 #!/bin/sh
-vcs -sverilog +acc +vpi -timescale=1ns/1ps -ntb_opts uvm-1.2 \
+vcs -sverilog +acc +vpi -timescale=10ps/10ps -ntb_opts uvm-1.2 \
 +incdir+../tb/include \
 +incdir+../tb/upstream/sv \
 +incdir+../tb/downstream/sv \
@@ -7,6 +7,7 @@ vcs -sverilog +acc +vpi -timescale=1ns/1ps -ntb_opts uvm-1.2 \
 +incdir+../tb/top_test/sv \
 +incdir+../tb/top_tb/sv \
 -F ../dut/files.f \
+../tb/include//pkg/verif_pkg.sv \
 ../tb/upstream/sv/upstream_pkg.sv \
 ../tb/upstream/sv/upstream_if.sv \
 ../tb/downstream/sv/downstream_pkg.sv \

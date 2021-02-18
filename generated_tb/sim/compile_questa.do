@@ -8,6 +8,9 @@ set cmd "vlog -F ../dut/files.f"
 eval $cmd
 
 set tb_name top
+set cmd "vlog -sv +incdir+../tb/include  ../tb/include//pkg/verif_pkg.sv"
+eval $cmd
+
 set agent_list {\ 
     upstream \
     downstream \
@@ -28,11 +31,11 @@ set cmd  "vlog -sv +incdir+../tb/include +incdir+../tb/"
 append cmd $tb_name "_test/sv ../tb/" $tb_name "_test/sv/" $tb_name "_test_pkg.sv"
 eval $cmd
 
-set cmd  "vlog -sv -timescale 1ns/1ps +incdir+../tb/include +incdir+../tb/"
+set cmd  "vlog -sv -timescale 10ps/10ps +incdir+../tb/include +incdir+../tb/"
 append cmd $tb_name "_tb/sv ../tb/" $tb_name "_tb/sv/" $tb_name "_th.sv"
 eval $cmd
 
-set cmd  "vlog -sv -timescale 1ns/1ps +incdir+../tb/include +incdir+../tb/"
+set cmd  "vlog -sv -timescale 10ps/10ps +incdir+../tb/include +incdir+../tb/"
 append cmd $tb_name "_tb/sv ../tb/" $tb_name "_tb/sv/" $tb_name "_tb.sv"
 eval $cmd
 

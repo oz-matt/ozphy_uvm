@@ -14,6 +14,9 @@ set cmd "alog +incdir+$aldec/vlib/uvm-1.2/src -l uvm_1_2 -err VCP5417 W9 -err VC
 set tb_name top
 append cmd " +incdir+../tb/include "
 
+# Compile the common env package
+append cmd " ../tb/include//pkg/verif_pkg.sv"
+
 # Compile the agents
 set agent_list {\ 
     upstream \

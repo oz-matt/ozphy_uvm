@@ -8,20 +8,21 @@
 //
 // Version:   1.0
 //
-// Code created by Easier UVM Code Generator version 2017-01-19 on Wed Feb 17 10:05:16 2021
+// Code created by Easier UVM Code Generator version 2017-01-19 on Thu Feb 18 07:48:09 2021
 //=============================================================================
 // Description: Testbench
 //=============================================================================
 
 module top_tb;
 
-  timeunit      1ns;
-  timeprecision 1ps;
+  timeunit      10ps;
+  timeprecision 10ps;
 
   `include "uvm_macros.svh"
 
   import uvm_pkg::*;
 
+  import verif_pkg::*;
   import top_test_pkg::*;
   import top_pkg::top_config;
 

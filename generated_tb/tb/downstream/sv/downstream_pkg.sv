@@ -8,7 +8,7 @@
 //
 // Version:   1.0
 //
-// Code created by Easier UVM Code Generator version 2017-01-19 on Wed Feb 17 10:05:16 2021
+// Code created by Easier UVM Code Generator version 2017-01-19 on Thu Feb 18 07:48:09 2021
 //=============================================================================
 // Description: Package for agent downstream
 //=============================================================================
@@ -19,6 +19,7 @@ package downstream_pkg;
 
   import uvm_pkg::*;
 
+  import verif_pkg::*;
 
   `include "downstream_ustream_trans.sv"
   `include "downstream_config.sv"
