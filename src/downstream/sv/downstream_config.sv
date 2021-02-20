@@ -22,7 +22,8 @@ class downstream_config extends uvm_object;
 
   // Do not register config class with the factory
 
-  virtual downstream_if    vif;
+  virtual downstream_mac_if      mac_vif;
+  virtual downstream_phy_if      phy_vif;
                   
   uvm_active_passive_enum  is_active = UVM_ACTIVE;
   bit                      coverage_enable;       

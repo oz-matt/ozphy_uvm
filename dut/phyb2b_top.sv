@@ -1,7 +1,7 @@
 
 module phyb2b_top(
-  pcie_basic_if ustream_if,
-  pcie_basic_if dstream_if
+  dw_vip_pcie_txrx_if ustream_if,
+  dw_vip_pcie_txrx_if dstream_if
   );
   
   wire [15:0] b10out;

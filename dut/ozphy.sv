@@ -3,7 +3,7 @@ module ozphy #(
     parameter nts = 1024, //number of ts1s and ts2s required during polling phase of ltssm. Spec cites 1024
     parameter serdes_cycle = 40
   ) (
-    pcie_basic_if pcie_phy_if, 
+    dw_vip_pcie_txrx_if pcie_phy_if, 
     output[15:0] l_serial_tolink,
     input[15:0] l_serial_fromlink
   );

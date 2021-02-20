@@ -12,7 +12,8 @@
 //=============================================================================
 // Description: Testbench
 //=============================================================================
-
+`include "pcie_basic_hdl_interconnect_sv_wrapper.sv"
+`include "Pcie.uvm.pkg"
 module top_tb;
 
   timeunit      10ps;
@@ -22,19 +23,15 @@ module top_tb;
 
   import uvm_pkg::*;
 
-  import verif_pkg::*;
+  //import verif_pkg::*;
+  import dw_vip_pcie_uvm_pkg::*;
   import top_test_pkg::*;
   import top_pkg::top_config;
 
-  // Configuration object for top-level environment
   top_config top_env_config;
 
-  // Test harness
   top_th th();
 
-  // You can insert code here by setting tb_inc_inside_module in file common.tpl
-
-  // You can remove the initial block below by setting tb_generate_run_test = no in file common.tpl
 
   initial
   begin
@@ -45,12 +42,14 @@ module top_tb;
     if ( !top_env_config.randomize() )
       `uvm_error("top_tb", "Failed to randomize top-level configuration object" )
 
-    top_env_config.upstream_vif               = th.upstream_if_0;  
+    top_env_config.upstream_phy_vif           = th.pcie_phy_if1;  
+    top_env_config.upstream_mac_vif           = th.pcie_mac_if1;  
     top_env_config.is_active_upstream         = UVM_ACTIVE;        
     top_env_config.checks_enable_upstream     = 1;                 
     top_env_config.coverage_enable_upstream   = 1;                 
 
-    top_env_config.downstream_vif             = th.downstream_if_0;
+    top_env_config.downstream_phy_vif         = th.pcie_phy_if2;
+    top_env_config.downstream_mac_vif         = th.pcie_mac_if2;
     top_env_config.is_active_downstream       = UVM_ACTIVE;        
     top_env_config.checks_enable_downstream   = 1;                 
     top_env_config.coverage_enable_downstream = 1;                 
