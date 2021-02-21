@@ -7,6 +7,10 @@
 *.vpd
 *.key
 *.project
+cust_dw*
+pcie_*
 
 sim/
+scripts/
+hdl_interconnect/
 

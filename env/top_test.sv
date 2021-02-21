@@ -2,7 +2,11 @@
 `ifndef TOP_TEST_SV
 `define TOP_TEST_SV
 
+`include "top_env.sv"
 `include "cust_dw_vip_pcie_tlp_transaction.sv"
+`include "pcie_random_discrete_virtual_sequence.sv"
+`include "simpseq.sv"
+`include "pcie_null_virtual_sequence.sv"
 
 class top_test extends uvm_test;
   `uvm_component_utils(top_test)
@@ -26,19 +30,21 @@ function void top_test::build_phase(uvm_phase phase);
   set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
 
   uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.mac_if1_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
-  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", pcie_random_discrete_virtual_sequence::get_type());
-  uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.pcie_random_discrete_virtual_sequence", "sequence_length", 5);
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", pcie_random_discrete_virtual_sequence::get_type());
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", simpseq::get_type());
+  uvm_config_db#(uvm_object_wrapper)::set(this, "m_env.sequencer.main_phase", "default_sequence", pcie_null_virtual_sequence::type_id::get());
+  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.mac_if1_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", simpseq::get_type());
+  //uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.pcie_random_discrete_virtual_sequence", "sequence_length", 1);
     
   m_env = top_env::type_id::create("m_env", this);
 
 endfunction : build_phase
 
-function void final_phase(uvm_phase phase);
+function void top_test::final_phase(uvm_phase phase);
     uvm_report_server svr;
     `uvm_info("final_phase", "Entered ...",UVM_LOW)
 
     super.final_phase(phase);
-
     svr = uvm_report_server::get_server();
 
     if (svr.get_severity_count(UVM_FATAL)||  

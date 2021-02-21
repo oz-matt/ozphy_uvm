@@ -2,15 +2,12 @@
 `ifndef TOP_ENV_SV
 `define TOP_ENV_SV
 
-/* Define requester and completer ID of the component behind PHY */   
-`define DW_VIP_PCIE_MAC2_REQ_ID               16'h0100
-`define DW_VIP_PCIE_MAC2_CPL_ID               16'h0100
+/* Define requester and completer ID of the component  */   
+`define DW_VIP_PCIE_MAC1_REQ_ID               16'h0100
+`define DW_VIP_PCIE_MAC1_CPL_ID               16'h0100
   
-/* Define requester and completer ID for the component with MAC interface */  
-`define DW_VIP_PCIE_MAC1_REQ_ID               16'h0210
-`define DW_VIP_PCIE_MAC1_CPL_ID               16'h0210
-
-// You can insert code here by setting top_env_inc_before_class in file common.tpl
+`define DW_VIP_PCIE_MAC2_REQ_ID               16'h0210
+`define DW_VIP_PCIE_MAC2_CPL_ID               16'h0210
 
 `include "pcie_virtual_sequencer.sv"
 `include "cust_dw_vip_pcie_agent_configuration.sv"
@@ -31,7 +28,7 @@ class top_env extends uvm_env;
   //downstream_agent     m_downstream_agent;   
   //downstream_coverage  m_downstream_coverage;
 
-  top_config           m_config;
+  //top_config           m_config;
   
   dw_vip_pcie_agent                                  mac_if1_agent;
   dw_vip_pcie_agent                                  mac_if2_agent;
@@ -57,8 +54,6 @@ endfunction : new
 function void top_env::build_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "In build_phase", UVM_HIGH)
 
-  if (!uvm_config_db #(top_config)::get(this, "", "config", m_config)) 
-    `uvm_error(get_type_name(), "Unable to get top_config")
     
   // If test edits the custom mac configs, load them. Otherwise create() new empty ones.
   if (!uvm_config_db#(cust_dw_vip_pcie_agent_configuration)::get(this,"","mac_if1_agent_cfg",mac_if1_agent_cfg)) begin
@@ -72,19 +67,24 @@ function void top_env::build_phase(uvm_phase phase);
     
     
   this.mac_if1_agent_cfg.txrx_cfg.m_enPosition                       = dw_vip_pcie_configuration::UPSTREAM;
-  this.mac_if1_agent_cfg.txrx_cfg.m_enInterfaceType                  = dw_vip_pcie_configuration::PHY_PIPE8;
+  this.mac_if1_agent_cfg.txrx_cfg.m_enInterfaceType                  = dw_vip_pcie_configuration::MAC_PIPE8;
   this.mac_if1_agent_cfg.txrx_cfg.m_bvReqId                          = `DW_VIP_PCIE_MAC1_REQ_ID;
   this.mac_if1_agent_cfg.txrx_cfg.m_bvCplId                          = `DW_VIP_PCIE_MAC1_CPL_ID;
     
   this.mac_if2_agent_cfg.txrx_cfg.m_enPosition                       = dw_vip_pcie_configuration::DOWNSTREAM;
-  this.mac_if2_agent_cfg.txrx_cfg.m_enInterfaceType                  = dw_vip_pcie_configuration::PHY_PIPE8;
+  this.mac_if2_agent_cfg.txrx_cfg.m_enInterfaceType                  = dw_vip_pcie_configuration::MAC_PIPE8;
   this.mac_if2_agent_cfg.txrx_cfg.m_bvReqId                          = `DW_VIP_PCIE_MAC2_REQ_ID;
   this.mac_if2_agent_cfg.txrx_cfg.m_bvCplId                          = `DW_VIP_PCIE_MAC2_CPL_ID;
     
   mac_if1_agent_cfg.copy_txrx_cfg_to_mon_cfg();
   mac_if2_agent_cfg.copy_txrx_cfg_to_mon_cfg();
     
-    
+    uvm_config_db#(dw_vip_pcie_agent_configuration)::set(this,"mac_if1_agent", "cfg",mac_if1_agent_cfg);
+    uvm_config_db#(dw_vip_pcie_agent_configuration)::set(this,"mac_if2_agent", "cfg",mac_if2_agent_cfg);
+
+    uvm_config_db#(int)::set(this,"mac_if1_agent", "enable_monitor",1);
+    uvm_config_db#(int)::set(this,"mac_if2_agent", "enable_monitor",1);
+
   mac_if1_agent = dw_vip_pcie_agent::type_id::create("mac_if1_agent", this); 
   uvm_config_db#(bit)::set(this,"mac_if1_agent", "tlp_sequencer",1'b1);
   mac_if2_agent  = dw_vip_pcie_agent::type_id::create("mac_if2_agent", this);
@@ -167,14 +167,14 @@ task top_env::run_phase(uvm_phase phase);
      
        if (((mac_if1_agent_cfg.enable_monitor && mac_if1_agent.is_active == UVM_ACTIVE) || 
          (mac_if1_agent.is_active == UVM_PASSIVE)) && (mac_if1_agent.monitor != null)) begin
-         mac_if1_agent.monitor.open_symbol_log("./mac1_pcie_basic_sys_symbol.log", "w");
-         mac_if1_agent.monitor.open_transaction_log("./mac1_pcie_basic_sys_transaction.log", "w");
+         mac_if1_agent.monitor.open_symbol_log("./logs/mac1_pcie_basic_sys_symbol.log", "w");
+         mac_if1_agent.monitor.open_transaction_log("./logs/mac1_pcie_basic_sys_transaction.log", "w");
        end
 
        if (((mac_if2_agent_cfg.enable_monitor && mac_if2_agent.is_active == UVM_ACTIVE) || 
          (mac_if2_agent.is_active == UVM_PASSIVE)) && (mac_if2_agent.monitor != null)) begin
-         mac_if2_agent.monitor.open_symbol_log("./mac2_pcie_basic_sys_symbol.log", "w");
-         mac_if2_agent.monitor.open_transaction_log("./mac2_pcie_basic_sys_transaction.log", "w");
+         mac_if2_agent.monitor.open_symbol_log("./logs/mac2_pcie_basic_sys_symbol.log", "w");
+         mac_if2_agent.monitor.open_transaction_log("./logs/mac2_pcie_basic_sys_transaction.log", "w");
        end
        
      end
@@ -197,8 +197,6 @@ task top_env::run_phase(uvm_phase phase);
 */
 endtask : run_phase
 
-
-// You can insert code here by setting top_env_inc_after_class in file common.tpl
 
 `endif // TOP_ENV_SV
 
