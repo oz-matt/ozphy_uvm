@@ -1,31 +1,3 @@
-//=======================================================================
-// COPYRIGHT (C) 2010, 2011, 2012 SYNOPSYS INC.
-// This software and the associated documentation are confidential and
-// proprietary to Synopsys, Inc. Your use or disclosure of this software
-// is subject to the terms and conditions of a written license agreement
-// between you, or your company, and Synopsys, Inc. In the event of
-// publications, the following notice is applicable:
-//
-// ALL RIGHTS RESERVED
-//
-// The entire notice above must be reproduced on all authorized copies.
-//
-//-----------------------------------------------------------------------
-
-/**
- * Abstract:
- * Top level SystemVerilog testbench.
- * Notes
- *   PHY (Test Bench Device) - PcieTxrx representing the testbench (PIPE PHY interface)
- *   MAC (Device Under Test) - PcieTxrx representing the MAC (PIPE MAC interface)
- *   MON (Monitor)           - PcieMonitor tracking the MAC
- * This file declares module 'test_top'. The 'test_top' module instantiates two 
- * instances of the 'dw_vip_pcie_txrx_if' SystemVerilog interface for MAC and PHY 
- * sides of hdl_interconnect and an instance of 'dw_vip_pcie_monitor_if' for
- * MAC monitor.
- * The 'test_top' module also instantiates the hdl_interconnect wrapper passing 
- * both SystemVerilog interfaces.
- */
 
 `timescale 10 ps /10 ps
 
@@ -50,8 +22,7 @@ import dw_vip_pcie_uvm_pkg::*;
     logic clk_upstream = 0;
     logic clk_downstream = 0;
     
-    
-    
+
     dw_vip_pcie_txrx_if pcie_mac_if1();
     dw_vip_pcie_txrx_if pcie_mac_if2();
     
@@ -77,6 +48,7 @@ import dw_vip_pcie_uvm_pkg::*;
     .ustream_if(pcie_phy_if1),
     .dstream_if(pcie_phy_if2)
   );
+  
 
 
     initial begin
@@ -101,7 +73,16 @@ import dw_vip_pcie_uvm_pkg::*;
     uvm_config_db#(virtual dw_vip_pcie_monitor_if)::set(uvm_root::get(),"uvm_test_top.m_env.mac_if2_agent", "monitor_if" ,pcie_mac_mon_if2);
 
    /** UVM Test phase initiator */
-   run_test();   
+
+   fork
+     begin
+       run_test();   
+     end
+     begin
+       wps();
+     end
+   join_any
+   
  end
 
 /** Connect system clock */
@@ -130,5 +111,8 @@ import dw_vip_pcie_uvm_pkg::*;
       $vcdpluson;
   end
 `endif
-  
+
+`include "watchpts.sv" // add the wps task
+
 endmodule
+

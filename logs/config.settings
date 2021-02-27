@@ -1,0 +1,142 @@
+
+@ TIME            0 : Dumping PCIE Configuration Space
+
+--------------------------------------------------------------------------------
+                   REGISTER NAME                  |    ADDRESS    |    VALUE   
+--------------------------------------------------------------------------------
+
+Function 0 configuration space : 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+PCI 3.0 Compatible Registers : 
+-------------------------------------------------------------
+                   vendor_device0000000H00000000H
+                  command_status0000004H00100000H
+               rev_id_class_code0000008H00000000H
+              cache_lat_hdr_bist000000cH00000000H
+                 base_addr_reg_00000010H00000000H
+                 base_addr_reg_10000014H00000000H
+                 base_addr_reg_20000018H00000000H
+                 base_addr_reg_3000001cH00000000H
+                 base_addr_reg_40000020H00000000H
+                 base_addr_reg_50000024H00000000H
+             cardbus_cis_ptr_reg0000028H00000000H
+                subsystem_id_reg000002cH00000000H
+           exp_rom_base_addr_reg0000030H00000000H
+              capability_ptr_reg0000034H00000040H
+                   intr_line_reg000003cH00000000H
+PCI Power Management Capability Set Registers : 
+-------------------------------------------------------------
+                     pme_cap_reg0000040H00025001H
+              pme_cntrl_stat_reg0000044H00000000H
+Message Signaled Interrupt Capability Set Registers : 
+-------------------------------------------------------------
+                     msi_cap_reg0000050H00007005H
+              msi_msg_addr_reg_00000054H00000000H
+                msi_msg_data_reg0000058H00000000H
+PCI Express Capability Set Registers : 
+-------------------------------------------------------------
+                    pcie_cap_reg0000070H0001a010H
+                     dev_cap_reg0000074H00000000H
+              dev_cntrl_stat_reg0000078H00005810H
+                    link_cap_reg000007cH00000081H
+             link_cntrl_stat_reg0000080H00010000H
+MSIX Capability Set Registers : 
+-------------------------------------------------------------
+                msix_control_reg00000a0H00010011H
+              msix_table_bir_reg00000a4H00000000H
+                msix_pba_bir_reg00000a8H00000000H
+Advanced Error Extended Capability Set Registers : 
+-------------------------------------------------------------
+             advnced_err_cap_reg0000100H12c10001H
+          uncorrect_err_stat_reg0000104H00000000H
+          uncorrect_err_mask_reg0000108H00000000H
+          uncorrect_err_sevr_reg000010cH00062030H
+            correct_err_stat_reg0000110H00000000H
+            correct_err_mask_reg0000114H00002000H
+          advnc_err_cap_ctrl_reg0000118H00000000H
+                header_log_reg_0000011cH00000000H
+                header_log_reg_10000120H00000000H
+                header_log_reg_20000124H00000000H
+                header_log_reg_30000128H00000000H
+Virtual Channel Extended Capability Set Registers : 
+-------------------------------------------------------------
+         virtual_channel_cap_reg000012cH00010002H
+               port_vc_cap_reg_10000130H00000000H
+               port_vc_cap_reg_20000134H00000000H
+          port_vc_cntrl_stat_reg0000138H00000000H
+          vc_resource_ctrl_reg_00000140H800000ffH
+          vc_resource_stat_reg_00000144H00000000H
+
+--------------------------------------------------------------------------------
+
+@ TIME      1394600 : Dumping PCIE Configuration Space
+
+--------------------------------------------------------------------------------
+                   REGISTER NAME                  |    ADDRESS    |    VALUE   
+--------------------------------------------------------------------------------
+
+Function 0 configuration space : 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+PCI 3.0 Compatible Registers : 
+-------------------------------------------------------------
+                   vendor_device0000000H00000000H
+                  command_status0000004H00100007H
+               rev_id_class_code0000008H00000000H
+              cache_lat_hdr_bist000000cH00000000H
+                 base_addr_reg_00000010Hd0000000H
+                 base_addr_reg_10000014H80000000H
+                 base_addr_reg_20000018H01000000H
+                 base_addr_reg_3000001cH00000000H
+                 base_addr_reg_40000020H00010000H
+                 base_addr_reg_50000024H00000000H
+             cardbus_cis_ptr_reg0000028H00000000H
+                subsystem_id_reg000002cH00000000H
+           exp_rom_base_addr_reg0000030H00000000H
+              capability_ptr_reg0000034H00000040H
+                   intr_line_reg000003cH00000000H
+PCI Power Management Capability Set Registers : 
+-------------------------------------------------------------
+                     pme_cap_reg0000040H00025001H
+              pme_cntrl_stat_reg0000044H00000000H
+Message Signaled Interrupt Capability Set Registers : 
+-------------------------------------------------------------
+                     msi_cap_reg0000050H00007005H
+              msi_msg_addr_reg_00000054H00000000H
+                msi_msg_data_reg0000058H00000000H
+PCI Express Capability Set Registers : 
+-------------------------------------------------------------
+                    pcie_cap_reg0000070H0001a010H
+                     dev_cap_reg0000074H00000000H
+              dev_cntrl_stat_reg0000078H00045810H
+                    link_cap_reg000007cH00000081H
+             link_cntrl_stat_reg0000080H00010000H
+MSIX Capability Set Registers : 
+-------------------------------------------------------------
+                msix_control_reg00000a0H00010011H
+              msix_table_bir_reg00000a4H00000000H
+                msix_pba_bir_reg00000a8H00000000H
+Advanced Error Extended Capability Set Registers : 
+-------------------------------------------------------------
+             advnced_err_cap_reg0000100H12c10001H
+          uncorrect_err_stat_reg0000104H00040000H
+          uncorrect_err_mask_reg0000108H00000000H
+          uncorrect_err_sevr_reg000010cH00062030H
+            correct_err_stat_reg0000110H00000000H
+            correct_err_mask_reg0000114H00002000H
+          advnc_err_cap_ctrl_reg0000118H00000012H
+                header_log_reg_0000011cH44000001H
+                header_log_reg_10000120H0000000fH
+                header_log_reg_20000124H02100010H
+                header_log_reg_30000128HffffffffH
+Virtual Channel Extended Capability Set Registers : 
+-------------------------------------------------------------
+         virtual_channel_cap_reg000012cH00010002H
+               port_vc_cap_reg_10000130H00000000H
+               port_vc_cap_reg_20000134H00000000H
+          port_vc_cntrl_stat_reg0000138H00000000H
+          vc_resource_ctrl_reg_00000140H800000ffH
+          vc_resource_stat_reg_00000144H00000000H
+
+--------------------------------------------------------------------------------

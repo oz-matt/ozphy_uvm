@@ -21,6 +21,7 @@ class simpseq extends dw_vip_pcie_tlp_base_sequence;
   function new (string name = "simpseq");
     super.new(name);
   endfunction
+  
   virtual task body();
     bit [31:0] addr;
     
