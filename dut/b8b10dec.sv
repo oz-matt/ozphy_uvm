@@ -12,7 +12,7 @@ module b8b10dec(
   logic[9:0] clkd_rxdata;
   logic[8:0] decodeout;
   logic[9:0] rxdatarev;
-  logic decdispin ;
+  logic decdispin;
   logic decodedisp, decodeerr, disperr;
   
   initial begin

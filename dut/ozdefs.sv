@@ -4,6 +4,7 @@
   `define COM 8'hBC
   `define SKP 8'h1C
   `define PAD 8'hF7
+  `define ZRO 8'h00
 
   `define D2_0 8'h02
   `define D4_0 8'h04

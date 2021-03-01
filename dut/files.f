@@ -5,4 +5,4 @@
 ../dut/b8b10enc.sv
 ../dut/serdes.sv
 ../dut/ozphy.sv
-../dut/phyb2b_top.sv
+../dut/singlephy_top.sv

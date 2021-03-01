@@ -34,9 +34,9 @@ function void top_test::build_phase(uvm_phase phase);
 
   set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
 
-  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.mac_if1_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
+  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
   uvm_config_db#(uvm_object_wrapper)::set(this, "m_env.sequencer.main_phase", "default_sequence", pcie_null_virtual_sequence::type_id::get());
-  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.mac_if1_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", simpseq::get_type());
+  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", simpseq::get_type());
     
   m_env = top_env::type_id::create("m_env", this);
   

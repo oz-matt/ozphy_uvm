@@ -8,7 +8,7 @@ module b8b10enc(
   input txdatak,
   output logic [9:0] enc_final_txdata
 );
-  logic disp ;
+  logic disp;
   logic disp2;
   logic[7:0] clkd_txdata;
   logic clkd_txdatak;
@@ -46,8 +46,8 @@ module b8b10enc(
         clkd_txdatak <= 0;
       end
       else begin
-        if(!(clkd_txdata == txdata)) begin
           disp <= dispout;
+        if(!(clkd_txdata == txdata)) begin
           clkd_txdata <= txdata;
           clkd_txdatak <= txdatak;
         end

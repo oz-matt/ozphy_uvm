@@ -70,7 +70,7 @@ Virtual Channel Extended Capability Set Registers :
 
 --------------------------------------------------------------------------------
 
-@ TIME      1394600 : Dumping PCIE Configuration Space
+@ TIME      1365000 : Dumping PCIE Configuration Space
 
 --------------------------------------------------------------------------------
                    REGISTER NAME                  |    ADDRESS    |    VALUE   
