@@ -14,6 +14,8 @@
 `include "pcie_ds_txrx_sb_callbacks.sv"
 `include "pcie_us_coverage_callbacks.sv"
 
+`include "PcieMonitorDefines.inc"
+
 //typedef uvm_callbacks #(dw_vip_pcie_txrx_uvm, dw_vip_pcie_txrx_uvm_callbacks) dw_vip_pcie_txrx_uvm_callbacks_t;
 //typedef uvm_callbacks #(dw_vip_pcie_monitor_uvm,dw_vip_pcie_monitor_uvm_callbacks) dw_vip_pcie_monitor_uvm_callbacks_t;
 
@@ -165,6 +167,10 @@ task top_env::run_phase(uvm_phase phase);
          mac_if2_agent.monitor.open_symbol_log("../logs/mac2_pcie_basic_sys_symbol.log", "w");
          mac_if2_agent.monitor.open_transaction_log("../logs/mac2_pcie_basic_sys_transaction.log", "w");
          mac_if2_agent.monitor.dump_config_space("../logs/config.settings", "w");
+         mac_if2_agent.monitor.set_compliance_checking_on();
+         mac_if2_agent.monitor.set_compliance_item_check(`DW_VIP_PCIE_TXN_03_01_02, `VMT_DISABLE);
+         mac_if2_agent.monitor.set_compliance_item_check(`DW_VIP_PCIE_SYS_02_07_24, `VMT_DISABLE);
+         mac_if2_agent.monitor.report_compliance(`VMT_TRUE, "PHY Compliance", "../logs/compliance_report.log");
 	 mac_if2_agent.monitor.enable_msg_log(0, `VMT_MSG_ROUTE_ALL);
 	 //mac_if2_agent.monitor.disable_msg_type(0,`VMT_MSG_ALL, `VMT_MSG_ROUTE_ALL);
 	 mac_if2_agent.monitor.enable_msg_type(0,`VMT_MSG_ERROR, `VMT_MSG_ROUTE_ALL);

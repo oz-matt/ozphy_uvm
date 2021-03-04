@@ -20,3 +20,4 @@
 //`include "ts.directed_test.sv"
 //`include "ts.random_test.sv"
 `include "top_test.sv"
+`include "random_basic.sv"

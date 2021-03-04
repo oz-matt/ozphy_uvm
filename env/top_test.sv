@@ -4,9 +4,7 @@
 
 `include "top_env.sv"
 `include "cust_dw_vip_pcie_tlp_transaction.sv"
-`include "pcie_random_discrete_virtual_sequence.sv"
-`include "simpseq.sv"
-`include "pcie_null_virtual_sequence.sv"
+`include "simp_virt_seq.sv"
 
 class top_test extends uvm_test;
   `uvm_component_utils(top_test)
@@ -32,11 +30,13 @@ endfunction : new
 
 function void top_test::build_phase(uvm_phase phase);
 
-  set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
+  //set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
 
-  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
-  uvm_config_db#(uvm_object_wrapper)::set(this, "m_env.sequencer.main_phase", "default_sequence", pcie_null_virtual_sequence::type_id::get());
-  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", simpseq::get_type());
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", pcie_null_virtual_sequence::get_type());
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", simp_virt_seq::get_type());
+  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", pcie_random_discrete_tlp_sequence::get_type());
+  //uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.simp_virt_seq", "sequence_length", 25);
     
   m_env = top_env::type_id::create("m_env", this);
   
