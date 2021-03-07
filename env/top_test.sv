@@ -5,6 +5,8 @@
 `include "top_env.sv"
 `include "cust_dw_vip_pcie_tlp_transaction.sv"
 `include "simp_virt_seq.sv"
+`include "pcie_random_discrete_tlp_sequence.sv"
+`include "constrained_training.sv"
 
 class top_test extends uvm_test;
   `uvm_component_utils(top_test)
@@ -30,12 +32,12 @@ endfunction : new
 
 function void top_test::build_phase(uvm_phase phase);
 
-  //set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
+  set_type_override_by_type(dw_vip_pcie_tlp_transaction::get_type() , cust_dw_vip_pcie_tlp_transaction::get_type());
 
-  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
+  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", constrained_training_sequence::get_type());
   //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", pcie_null_virtual_sequence::get_type());
   //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", simp_virt_seq::get_type());
-  //uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", pcie_random_discrete_tlp_sequence::get_type());
+  uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.main_phase", "default_sequence", pcie_random_discrete_tlp_sequence::get_type());
   //uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.simp_virt_seq", "sequence_length", 25);
     
   m_env = top_env::type_id::create("m_env", this);
@@ -53,7 +55,7 @@ root = uvm_root::get();
    root.set_report_default_file_hier(debugf);
    
   root.set_report_verbosity_level_hier(UVM_HIGH);
-root.set_report_severity_id_action_hier(UVM_INFO, "wp", UVM_LOG);
+root.set_report_severity_id_action_hier(UVM_INFO, "wp", UVM_DISPLAY | UVM_LOG);
 root.set_report_severity_action_hier(UVM_WARNING, UVM_DISPLAY | UVM_LOG);
 root.set_report_severity_action_hier(UVM_ERROR, UVM_DISPLAY | UVM_COUNT |  UVM_LOG);
 root.set_report_severity_action_hier(UVM_FATAL, UVM_DISPLAY| UVM_EXIT | UVM_LOG );

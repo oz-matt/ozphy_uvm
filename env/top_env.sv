@@ -16,7 +16,7 @@
 
 `include "PcieMonitorDefines.inc"
 
-//typedef uvm_callbacks #(dw_vip_pcie_txrx_uvm, dw_vip_pcie_txrx_uvm_callbacks) dw_vip_pcie_txrx_uvm_callbacks_t;
+typedef uvm_callbacks #(dw_vip_pcie_txrx_uvm, dw_vip_pcie_txrx_uvm_callbacks) dw_vip_pcie_txrx_uvm_callbacks_t;
 //typedef uvm_callbacks #(dw_vip_pcie_monitor_uvm,dw_vip_pcie_monitor_uvm_callbacks) dw_vip_pcie_monitor_uvm_callbacks_t;
 
 class top_env extends uvm_env;
@@ -25,18 +25,6 @@ class top_env extends uvm_env;
 
   extern function new(string name, uvm_component parent);
 
-
-  // Child agents
-  //upstream_config      m_upstream_config;    
-  //upstream_agent       m_upstream_agent;     
-  //upstream_coverage    m_upstream_coverage;  
-
-  //downstream_config    m_downstream_config;  
-  //downstream_agent     m_downstream_agent;   
-  //downstream_coverage  m_downstream_coverage;
-
-  //top_config           m_config;
-  
   dw_vip_pcie_agent                                  macphy_if_agent;
   dw_vip_pcie_agent                                  mac_if2_agent;
   
@@ -45,13 +33,14 @@ class top_env extends uvm_env;
 
   pcie_virtual_sequencer                sequencer;
   
-  //pcie_ds_txrx_sb_callbacks  ds_mac_cb;
+  pcie_ds_txrx_sb_callbacks  us_mac_cb;
   //pcie_us_coverage_callbacks  us_cov_cb;
   
   
   extern function void build_phase(uvm_phase phase);
   extern function void connect_phase(uvm_phase phase);
   extern function void end_of_elaboration_phase(uvm_phase phase);
+  extern task          pre_main_phase(uvm_phase phase);
   extern task          run_phase(uvm_phase phase);
   extern function void report_phase(uvm_phase phase);
 
@@ -81,6 +70,8 @@ function void top_env::build_phase(uvm_phase phase);
   this.macphy_if_agent_cfg.txrx_cfg.m_enPosition                       = dw_vip_pcie_configuration::UPSTREAM;
   this.macphy_if_agent_cfg.txrx_cfg.m_enInterfaceType                  = dw_vip_pcie_configuration::SERIAL;
   this.macphy_if_agent_cfg.txrx_cfg.m_bvReqId                          = `DW_VIP_PCIE_MAC1_REQ_ID;
+  this.macphy_if_agent_cfg.txrx_cfg.m_bvBarROMap[32'h00210010] = 32'hFF;
+  this.macphy_if_agent_cfg.txrx_cfg.m_bvBarROMap[32'h02100010] = 32'hFF;
   this.macphy_if_agent_cfg.txrx_cfg.m_bvCplId                          = `DW_VIP_PCIE_MAC1_CPL_ID;
     
   //this.mac_if2_agent.monitor.cfg.m_bMonRegTracking = 1'b1; // Turn on config register tracking
@@ -89,6 +80,8 @@ function void top_env::build_phase(uvm_phase phase);
   this.mac_if2_agent_cfg.txrx_cfg.m_bvReqId                          = `DW_VIP_PCIE_MAC2_REQ_ID;
   this.mac_if2_agent_cfg.txrx_cfg.m_bvCplId                          = `DW_VIP_PCIE_MAC2_CPL_ID;
   this.mac_if2_agent_cfg.txrx_cfg.m_bMonRegTracking = `VMT_ENABLE;
+  this.mac_if2_agent_cfg.txrx_cfg.m_bvBarROMap[32'h00210010] = 32'hFF;
+  this.mac_if2_agent_cfg.txrx_cfg.m_bvBarROMap[32'h02100010] = 32'hFF;
   mac_if2_agent_cfg.copy_txrx_cfg_to_mon_cfg();
   //macphy_if_agent_cfg.copy_txrx_cfg_to_mon_cfg();
     
@@ -110,7 +103,7 @@ function void top_env::build_phase(uvm_phase phase);
   `uvm_info("build_phase",  "Exiting ...", UVM_LOW)
     
     //ds_mac_cb = new("ds_mac_cb");
-   // us_cov_cb = new();
+    us_mac_cb = new();
     
 endfunction : build_phase
 
@@ -126,7 +119,7 @@ function void top_env::connect_phase(uvm_phase phase);
     sequencer.macphy_seqr = macphy_if_agent.virt_sequencer;
     
    // dw_vip_pcie_txrx_uvm_callbacks_t::add(mac_if2_agent.txrx, ds_mac_cb);
-   // dw_vip_pcie_monitor_uvm_callbacks_t::add(mac_if2_agent.monitor, us_cov_cb);
+    dw_vip_pcie_txrx_uvm_callbacks_t::add(macphy_if_agent.txrx, us_mac_cb);
     
     `uvm_info("connect_phase", "Exiting ...",UVM_LOW)
 
@@ -140,6 +133,17 @@ function void top_env::end_of_elaboration_phase(uvm_phase phase);
   uvm_top.print_topology();
   factory.print();
 endfunction : end_of_elaboration_phase
+
+
+task top_env::pre_main_phase(uvm_phase phase);
+
+    `uvm_info("pre_main_phasee", "Entered ...",UVM_LOW)
+    
+     //mac_if2_agent.monitor.set_bar_ro_map(`DW_VIP_PCIE_DEFAULT_REQ_SID, 0, 0, 5'h1F);
+     
+    `uvm_info("pre_main_phase", "Exiting ...",UVM_LOW)
+    
+endtask : pre_main_phase
 
 
 task top_env::run_phase(uvm_phase phase);

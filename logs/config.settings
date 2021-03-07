@@ -70,7 +70,7 @@ Virtual Channel Extended Capability Set Registers :
 
 --------------------------------------------------------------------------------
 
-@ TIME      2236600 : Dumping PCIE Configuration Space
+@ TIME      1727800 : Dumping PCIE Configuration Space
 
 --------------------------------------------------------------------------------
                    REGISTER NAME                  |    ADDRESS    |    VALUE   
@@ -85,11 +85,11 @@ PCI 3.0 Compatible Registers :
                   command_status0000004H00100007H
                rev_id_class_code0000008H00000000H
               cache_lat_hdr_bist000000cH00000000H
-                 base_addr_reg_00000010Hd0000000H
-                 base_addr_reg_10000014H80000000H
-                 base_addr_reg_20000018H01000000H
+                 base_addr_reg_00000010Hffffff00H
+                 base_addr_reg_10000014H00000000H
+                 base_addr_reg_20000018H00000000H
                  base_addr_reg_3000001cH00000000H
-                 base_addr_reg_40000020H00010000H
+                 base_addr_reg_40000020H00000000H
                  base_addr_reg_50000024H00000000H
              cardbus_cis_ptr_reg0000028H00000000H
                 subsystem_id_reg000002cH00000000H

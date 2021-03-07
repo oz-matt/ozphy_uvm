@@ -21,3 +21,4 @@
 //`include "ts.random_test.sv"
 `include "top_test.sv"
 `include "random_basic.sv"
+`include "mem_io_rand_test.sv"

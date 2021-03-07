@@ -22,11 +22,8 @@ function void build_phase(uvm_phase phase);
 
   uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.macphy_if_agent.virt_sequencer.tlp_sequencer.configure_phase", "default_sequence", dw_vip_pcie_tlp_training_sequence::get_type());
   uvm_config_db#(uvm_object_wrapper)::set(this,"m_env.sequencer.main_phase", "default_sequence", simp_virt_seq::get_type());
-  `ifdef SEQLEN
     uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.simp_virt_seq", "sequence_length", `SEQLEN);
-  `else
-    uvm_config_db#(int unsigned)::set(this,"m_env.sequencer.simp_virt_seq", "sequence_length", 5);
-  `endif
+
   
 endfunction : build_phase
 
